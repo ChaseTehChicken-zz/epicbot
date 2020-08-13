@@ -4,17 +4,18 @@ import datetime
 import sys
 import traceback
 
+embed_color = discord.Color(0x2F3136)
+
 class Error(commands.Cog):
 
     def __init__(self, client):
-
         self.client = client
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, exception):
         error = getattr(exception, "original", exception)
         if isinstance(error, commands.CommandOnCooldown):
-            embed = discord.Embed(title="Slow Down Buddy!", description=f"You may retry in {round(error.retry_after)}s", color=0x2f3136)
+            embed = discord.Embed(title="Slow Down Buddy!", description=f"You may retry in {round(error.retry_after)}s", color=embed_color)
             embed.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=embed)
         elif isinstance(error, discord.NotFound):
@@ -26,7 +27,7 @@ class Error(commands.Cog):
         elif isinstance(exception, commands.MissingRequiredArgument):
             await ctx.send('Command is missing required argument!')
         elif isinstance(exception, commands.MissingPermissions):
-            embed = discord.Embed(description='You are missing the correct permissions to run this command!', color=0x2f3136)
+            embed = discord.Embed(description='You are missing the correct permissions to run this command!', color=embed_color)
             embed.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=embed)
         else:
@@ -37,5 +38,4 @@ class Error(commands.Cog):
 
 
 def setup(client):
-
     client.add_cog(Error(client))
