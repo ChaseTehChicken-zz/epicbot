@@ -4,7 +4,6 @@ import pymongo
 from pymongo import MongoClient
 import datetime
 
-cluster = MongoClient("mongodb+srv://BotAdmin:12fuckyou@cluster0.c7bxx.mongodb.net/<dbname>?retryWrites=true&w=majority")
 db_name = cluster["Discord"]
 balance = db_name["Balance_Setup"]
 exists = cluster.list_database_names()
