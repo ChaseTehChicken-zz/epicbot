@@ -9,7 +9,6 @@ balance = db_name["Balance_Setup"]
 exists = cluster.list_database_names()
 
 class Balance(commands.Cog):
-    
     def __init__(self, client):
         self.client = client
 
