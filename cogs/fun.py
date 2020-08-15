@@ -44,6 +44,78 @@ class Fun(commands.Cog):
         embed.set_image(url=resultjson['link'])
         embed.set_footer(text=f"a amazing good dog")
         await ctx.send(embed=embed)
+        
+    # get a random cute pic of a panda
+    # usage: >>panda
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def panda(self, ctx):
+        await ctx.trigger_typing()
+        url = 'https://some-random-api.ml/img/panda'
+        result_url = requests.get(url)
+        resultjson = result_url.json()
+        embed = discord.Embed(title='PandaPan!')
+        embed.set_image(url=resultjson['link'])
+        embed.set_footer(text='owo')
+        await ctx.send(embed=embed)
+
+    # get a random cute pic of a redpanda
+    # usage: >>redpanda
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def redpanda(self, ctx):
+        await ctx.trigger_typing()
+        url = 'https://some-random-api.ml/img/redpanda'
+        result_url = requests.get(url)
+        resultjson = result_url.json()
+        embed = discord.Embed(title='PandaPan!')
+        embed.set_image(url=resultjson['link'])
+        embed.set_footer(text='owo')
+        await ctx.send(embed=embed)
+    
+
+    # get a random cute pic of a birb
+    # usage: >>birb
+    @commands.command(aliases=['bird'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def birb(self, ctx):
+        await ctx.trigger_typing()
+        url = 'https://some-random-api.ml/img/birb'
+        result_url = requests.get(url)
+        resultjson = result_url.json()
+        embed = discord.Embed(title='ebic birb')
+        embed.set_image(url=resultjson['link'])
+        embed.set_footer(text='owo')
+        await ctx.send(embed=embed)
+
+    
+    # get a random cute pic of a fox
+    # usage: >>fox
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def fox(self, ctx):
+        await ctx.trigger_typing()
+        url = 'https://some-random-api.ml/img/fox'
+        result_url = requests.get(url)
+        resultjson = result_url.json()
+        embed = discord.Embed(title='foxy owo')
+        embed.set_image(url=resultjson['link'])
+        embed.set_footer(text='owo')
+        await ctx.send(embed=embed)
+
+    # get a random cute pic of a koala
+    # usage: >>koala
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def koala(self, ctx):
+        await ctx.trigger_typing()
+        url = 'https://some-random-api.ml/img/koala'
+        result_url = requests.get(url)
+        resultjson = result_url.json()
+        embed = discord.Embed(title='drop bear!')
+        embed.set_image(url=resultjson['link'])
+        embed.set_footer(text='owo')
+        await ctx.send(embed=embed)
 
     # get a random picture of a meme
     # usage: >>meme
@@ -57,6 +129,8 @@ class Fun(commands.Cog):
         embed.set_image(url=resultjson['image'])
         embed.set_footer(text=f"Category: {resultjson[ 'category']}")
         await ctx.send(embed=embed)
+
+    
 
 
 def setup(client):
