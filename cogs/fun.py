@@ -54,9 +54,9 @@ class Fun(commands.Cog):
         url = 'https://some-random-api.ml/img/panda'
         result_url = requests.get(url)
         resultjson = result_url.json()
-        embed = discord.Embed(title='PandaPan!')
+        embed = discord.Embed(title='Epic Panda!')
         embed.set_image(url=resultjson['link'])
-        embed.set_footer(text='owo')
+        embed.set_footer(text='cute')
         await ctx.send(embed=embed)
 
     # get a random cute pic of a redpanda
@@ -68,9 +68,9 @@ class Fun(commands.Cog):
         url = 'https://some-random-api.ml/img/redpanda'
         result_url = requests.get(url)
         resultjson = result_url.json()
-        embed = discord.Embed(title='PandaPan!')
+        embed = discord.Embed(title='its a panda! but red!')
         embed.set_image(url=resultjson['link'])
-        embed.set_footer(text='owo')
+        embed.set_footer(text='such red')
         await ctx.send(embed=embed)
     
     # get a random cute pic of a birb
@@ -84,7 +84,7 @@ class Fun(commands.Cog):
         resultjson = result_url.json()
         embed = discord.Embed(title='ebic birb')
         embed.set_image(url=resultjson['link'])
-        embed.set_footer(text='owo')
+        embed.set_footer(text='borb')
         await ctx.send(embed=embed)
 
     # get a random cute pic of a fox
@@ -96,9 +96,9 @@ class Fun(commands.Cog):
         url = 'https://some-random-api.ml/img/fox'
         result_url = requests.get(url)
         resultjson = result_url.json()
-        embed = discord.Embed(title='foxy owo')
+        embed = discord.Embed(title='foxes r cute')
         embed.set_image(url=resultjson['link'])
-        embed.set_footer(text='owo')
+        embed.set_footer(text='sly 100')
         await ctx.send(embed=embed)
 
     # get a random cute pic of a koala
@@ -112,7 +112,7 @@ class Fun(commands.Cog):
         resultjson = result_url.json()
         embed = discord.Embed(title='drop bear!')
         embed.set_image(url=resultjson['link'])
-        embed.set_footer(text='owo')
+        embed.set_footer(text='slep')
         await ctx.send(embed=embed)
 
     # get a random picture of a meme
