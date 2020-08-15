@@ -73,7 +73,6 @@ class Fun(commands.Cog):
         embed.set_footer(text='owo')
         await ctx.send(embed=embed)
     
-
     # get a random cute pic of a birb
     # usage: >>birb
     @commands.command(aliases=['bird'])
@@ -88,7 +87,6 @@ class Fun(commands.Cog):
         embed.set_footer(text='owo')
         await ctx.send(embed=embed)
 
-    
     # get a random cute pic of a fox
     # usage: >>fox
     @commands.command()
@@ -129,9 +127,6 @@ class Fun(commands.Cog):
         embed.set_image(url=resultjson['image'])
         embed.set_footer(text=f"Category: {resultjson[ 'category']}")
         await ctx.send(embed=embed)
-
-    
-
 
 def setup(client):
     client.add_cog(Fun(client))
