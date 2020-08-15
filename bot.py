@@ -6,7 +6,7 @@ import pymongo
 from pymongo import MongoClient
 from discord.ext import commands
 
-dev_ids = [188728919774461952, 514858928983506959, 420454043593342977]
+dev_ids = [188728919774461952, 514858928983506959, 420454043593342977, 695612858179911732, 251105781867347969, 717822288375971900, 354028831897681920]
 
 client = commands.Bot(command_prefix=commands.when_mentioned_or(">>"))
 client.remove_command('help')
