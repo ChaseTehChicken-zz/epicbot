@@ -17,11 +17,11 @@ class Fun(commands.Cog):
                 "ʕ •ᴥ•ʔゝ☆", "ᕕʕ •ₒ• ʔ୨", "ʕ　·ᴥʔ", "ʕ·ᴥ·　ʔ", "ʕᴥ·　ʔ", "ʕ •ᴥ•ʔ", "ʕง•ᴥ•ʔง"]
         await ctx.send(" " + random.choice(bears))
 
-    # get a random picture of a cat
+    # get a random cute picture of a cat
     # usage: >>cat
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
-    async def cat(ctx):
+    async def cat(self, ctx):
         url = 'https://some-random-api.ml/img/cat'
         result_url = requests.get(url)
         resultjson=result_url.json()
@@ -31,11 +31,11 @@ class Fun(commands.Cog):
         embed.set_footer(text=f"a amazing good cat")
         await ctx.send(embed=embed)
 
-    # get a random picture of a dog
+    # get a random cute picture of a dog
     # usage: >>dog
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
-    async def dog(ctx):
+    async def dog(self, ctx):
         url = 'https://some-random-api.ml/img/dog'
         result_url = requests.get(url)
         resultjson=result_url.json()
@@ -49,7 +49,7 @@ class Fun(commands.Cog):
     # usage: >>meme
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
-    async def meme(ctx):
+    async def meme(self, ctx):
         url = 'https://some-random-api.ml/meme'
         result_url = requests.get(url)
         resultjson=result_url.json()
