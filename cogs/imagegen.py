@@ -14,14 +14,16 @@ class Image(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.session = aiohttp.ClientSession()
-    
+
     def __embed_json(self, data, key='message'):
         em = discord.Embed(color=0x1B0FDD)
-        em.set_image(url=data[key]) 
-        return em 
-    
+        em.set_image(url=data[key])
+        return em
+
+    # generates a tweet picture with username and text
+    # usage: >>tweet (username) (text)
     @commands.command()
-    @commands.cooldown(1,10, commands.BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def tweet(self, ctx, username : str, *, text : str):
         await ctx.trigger_typing()
         async with self.session.get('https://nekobot.xyz/api/imagegen?type=tweet'
@@ -30,6 +32,8 @@ class Image(commands.Cog):
             res = await r.json()
         await ctx.send(embed=self.__embed_json(res))
 
+    # generates a ph comment picture [only works in nsfw channels]
+    # usage: >>phcomment (text)
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def phcomment(self, ctx, *, comment : str):
@@ -43,7 +47,7 @@ class Image(commands.Cog):
         if not res["success"]:
             return await ctx.send('**Failed to get image ;-;')
         await ctx.send(embed=self.__embed_json(res))
-    
+
 
 def setup(client):
     client.add_cog(Image(client))

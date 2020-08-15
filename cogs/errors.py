@@ -5,9 +5,7 @@ import sys
 import traceback
 
 class Error(commands.Cog):
-
     def __init__(self, client):
-
         self.client = client
 
     @commands.Cog.listener()
@@ -35,7 +33,5 @@ class Error(commands.Cog):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 
-
 def setup(client):
-
     client.add_cog(Error(client))

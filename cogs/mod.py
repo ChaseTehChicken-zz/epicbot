@@ -45,6 +45,8 @@ class Moderation(commands.Cog):
         if isinstance(error, commands.BadArgument):
             await ctx.send(error)
 
+    # ban member
+    # usage: >>ban (member) (reason)
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : Sinner=None, *, reason=None):
@@ -58,6 +60,8 @@ class Moderation(commands.Cog):
         except discord.Forbidden:
             return await ctx.send('Are you trying to ban someone higher than me? I cant do that ;-;')
 
+    # unban banned member
+    # usage: >>unban (member)
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, *, member):
@@ -72,6 +76,8 @@ class Moderation(commands.Cog):
                 print(f'Member unbanned: {member}')
                 return
 
+    # mute user
+    # usage: >>mute (user) (reason)
     @commands.command()
     @commands.has_permissions(manage_roles=True)
     async def mute(self, ctx, user: Sinner, reason=None):
@@ -79,6 +85,19 @@ class Moderation(commands.Cog):
         await mute(ctx, user, reason or "treason")
         await ctx.send(f'{user} was muted for {reason}')
 
+    # unmute user
+    # usage: >>unmute (user)
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def unmute(self, ctx, user: Redeemed):
+        """Unmutes a muted user"""
+        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
+        await ctx.send(f"{user.mention} has been unmuted")
+        return
+
+
+    # kick member
+    # usage: >>kick (user) (reason)
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, user: Sinner=None, reason=None):
@@ -91,7 +110,9 @@ class Moderation(commands.Cog):
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot?")
 
-    @commands.command()
+    # clears chatmessages 
+    # usage: >>purge/clear (limit)
+    @commands.command(aliases=["clear"])
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, limit: int):
         """Bulk deletes messages"""
@@ -99,14 +120,8 @@ class Moderation(commands.Cog):
         await ctx.purge(limit=limit + 1)
         await ctx.send(f"Bulk deleted `{limit}` messages", delete_after=5)
 
-    @commands.command()
-    @commands.has_permissions(manage_roles=True)
-    async def unmute(self, ctx, user: Redeemed):
-        """Unmutes a muted user"""
-        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
-        await ctx.send(f"{user.mention} has been unmuted")
-        return
-
+    # block user from sending messages in channel
+    # usage: >>block (user)
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def block(self, ctx, user: Sinner=None):
@@ -117,6 +132,8 @@ class Moderation(commands.Cog):
         await ctx.channel.set_permissions(user, send_messages=False)
         await ctx.send(f'{user} was blocked from sending messages in this channel ;-;')
 
+    # unblock user
+    # usage: >>unblock (user)
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def unblock(self, ctx, user: Sinner=None):
@@ -126,6 +143,8 @@ class Moderation(commands.Cog):
 
         await ctx.channel.set_permissions(user, send_messages=True)
 
+    # find out userinfo
+    # usage: >>user/whois/i/ui (user)
     @commands.command(aliases=["user", "whois", "i", "ui"])
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def userinfo(self, ctx, user: discord.Member = None):
@@ -166,6 +185,8 @@ class Moderation(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    # let the bot talk uwu
+    # usage: >>echo/say (channel) (text)
     @commands.command(aliases=['say'])
     async def echo(self, ctx, channel:discord.TextChannel=None, *, args):
         try:
@@ -178,6 +199,8 @@ class Moderation(commands.Cog):
         except discord.Forbidden:
             await ctx.send('I dont have permission to talk there ;-;')
 
+    # get server info
+    # usage: >>guild/server/guildinfo/serverinfo 
     @commands.command(aliases=['server', 'guildinfo', 'serverinfo'])
     async def guild(self, ctx):
         await ctx.trigger_typing()
@@ -200,6 +223,7 @@ class Moderation(commands.Cog):
         embed.add_field(name="Custom Emoji", value=len(server.emojis))
         embed.add_field(name="Created At", value=server.created_at)
         await ctx.send(embed=embed)
+
 
 def setup(client):
     client.add_cog(Moderation(client))
