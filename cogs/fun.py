@@ -95,7 +95,7 @@ class Fun(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def redpanda(self, ctx):
         await ctx.trigger_typing()
-        url = 'https://some-random-api.ml/img/redpanda'
+        url = 'https://some-random-api.ml/img/red_panda'
         result_url = requests.get(url)
         resultjson = result_url.json()
         embed = discord.Embed(title='its a panda! but red!', description="red panpan",
