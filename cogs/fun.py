@@ -162,6 +162,20 @@ class Fun(commands.Cog):
         embed.set_image(url=resultjson['image'])
         embed.set_footer(text=f"Category: {resultjson[ 'category']}")
         await ctx.send(embed=embed)
+                         
+    # Char count
+    # Usage: >>char [argument/s]
+    @commands.command()
+    @commands.cooldown(1,3, commands.BucketType.user)
+    async def char(self, ctx, *, args=None):
+
+        if args == None:
+            await ctx.send("**Dummy what am I supposed to jumble?**")
+
+        elif args != None:
+            word = len(args)
+            embed = discord.Embed(title=None, description=f"There are **{word}** letters in **{args}**", color=discord.Colour.dark_purple())
+            await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(Fun(client))
