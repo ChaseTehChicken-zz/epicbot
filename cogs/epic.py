@@ -16,6 +16,5 @@ class Epic(commands.Cog):
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed) # fixed xd
 
-
 def setup(client):
     client.add_cog(Epic(client))

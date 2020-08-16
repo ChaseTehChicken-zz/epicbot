@@ -13,7 +13,6 @@ class help(commands.Cog):
             e.add_field(name='>>help mod', value='Epic mod commands')
             e.add_field(name='>>help fun', value='Epic Fun Stuff')
             await ctx.send(embed=e)
-
         if args == 'fun':
             e = discord.Embed(title='Super fun commands')
             e.add_field(name='>>kaomoji_bear', value='Sends a random bear kaomoji')
@@ -29,7 +28,6 @@ class help(commands.Cog):
             e.add_field(name='>>koala', value='Generate an image of a koala')
             e.add_field(name='>>meme', value='Get a haha funny me me')
             await ctx.send(embed=e)
-
         elif args == 'mod':
             e = discord.Embed(title='Epic Mod Commands', description='You need the correct permissions for each command. e.g ban_members for banning, manage_roles for muting etc.')
             e.add_field(name='>>ban (@member) reason (optional)', value='Ban naughty people')
@@ -44,13 +42,11 @@ class help(commands.Cog):
             e.add_field(name='>>echo/say (channel) (text)', value='Let the bot talk! uwu')
             e.add_field(name='>>guild/server/guildinfo/serverinfo', value='Get server info')
             await ctx.send(embed=e)
-
         elif args == 'imagegen':
             e = discord.Embed(title='Image generator commands')
             e.add_field(name='>>tweet (username) (tweet)', value='Generate a fake tweet')
             e.add_field(name='>>phcomment (comment)', value='[NSFW CHANNEL ONLY!] Make a fake PHComment ;)')
             await ctx.send(embed=e)
-
         else:
             raise commands.BadArgument()
 
