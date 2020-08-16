@@ -5,7 +5,9 @@ import sys
 import traceback
 
 class Error(commands.Cog):
+
     def __init__(self, client):
+
         self.client = client
 
     @commands.Cog.listener()
@@ -27,11 +29,16 @@ class Error(commands.Cog):
             embed = discord.Embed(description='You are missing the correct permissions to run this command!', color=0x2f3136)
             embed.timestamp = datetime.datetime.utcnow()
             await ctx.send(embed=embed)
+        elif isinstance(error, commands.BotMissingPermissions):
+            embed = discord.Embed(description='Oh no! I don\'t have the correct permissions to perform that command!')
+            await ctx.send(embed=embed)
         else:
             raise error
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 
+
 def setup(client):
+
     client.add_cog(Error(client))

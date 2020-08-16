@@ -95,7 +95,7 @@ class Fun(commands.Cog):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def redpanda(self, ctx):
         await ctx.trigger_typing()
-        url = 'https://some-random-api.ml/img/redpanda'
+        url = 'https://some-random-api.ml/img/red_panda'
         result_url = requests.get(url)
         resultjson = result_url.json()
         embed = discord.Embed(title='its a panda! but red!', description="red panpan",
@@ -162,6 +162,20 @@ class Fun(commands.Cog):
         embed.set_image(url=resultjson['image'])
         embed.set_footer(text=f"Category: {resultjson[ 'category']}")
         await ctx.send(embed=embed)
+                         
+    # Char count
+    # Usage: >>char [argument/s]
+    @commands.command()
+    @commands.cooldown(1,3, commands.BucketType.user)
+    async def char(self, ctx, *, args=None):
+
+        if args == None:
+            await ctx.send("**Dummy what am I supposed to jumble?**")
+
+        elif args != None:
+            word = len(args)
+            embed = discord.Embed(title=None, description=f"There are **{word}** letters in **{args}**", color=discord.Colour.dark_purple())
+            await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(Fun(client))
