@@ -4,9 +4,8 @@ import datetime
 
 embed_color = discord.Color(0x2F3136)
 
-class Epic(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+class Epic(commands.Cog): 
+    def __init__(self, client): self.client = client
 
     # basic ping command cause why not lmao
     # usage: >>ping/latency
