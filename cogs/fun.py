@@ -1,7 +1,7 @@
-import discord
-from discord.ext import commands
 import random
 import requests
+import discord
+from discord.ext import commands
 
 class Fun(commands.Cog):
     def __init__(self, client):
@@ -33,7 +33,7 @@ class Fun(commands.Cog):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def kaomoji_negative(self, ctx):
         negative_kaomojis = ["(ﾉಥ益ಥ)ﾉ", "(・`ω´・)", "(ﾒ` ﾛ ´)", "ヽ( `д´*)ノ", "୧((#Φ益Φ#))୨", "(凸ಠ益ಠ)凸", "凸( ` ﾛ ´ )凸", "凸(`△´＃)",
-                            "(╯︵╰,)", "(╥﹏╥)", "(｡•́︿•̀｡)", "(ಥ﹏ಥ)", "。゜゜(´Ｏ`) ゜゜。", "〜(＞＜)〜", "(ﾒ￣▽￣)︻┳═一", "( ͡° ʖ̯ ͡°)", 
+                            "(╯︵╰,)", "(╥﹏╥)", "(｡•́︿•̀｡)", "(ಥ﹏ಥ)", "。゜゜(´Ｏ`) ゜゜。", "〜(＞＜)〜", "(ﾒ￣▽￣)︻┳═一", "( ͡° ʖ̯ ͡°)",
                             "( ͠° ͟ʖ ͡°)", "( ͡ಠ ʖ̯ ͡ಠ)", "( ಠ ʖ̯ ಠ)", "(;´༎ຶٹ༎ຶ`)", "(ʘ ʖ̯ ʘ)", "(╯°Д°)╯︵ /(.□ . ＼)", "(ಠ o ಠ)¤=[]:::::>"]
         await ctx.send(" " + random.choice(negative_kaomojis))
 
@@ -67,13 +67,13 @@ class Fun(commands.Cog):
     async def dog(self, ctx):
         url = 'https://some-random-api.ml/img/dog'
         result_url = requests.get(url)
-        resultjson=result_url.json()
+        resultjson = result_url.json()
         embed=discord.Embed(title="here is doggo", description="a good boy or girl",
         colour=discord.Colour.green())
         embed.set_image(url=resultjson['link'])
         embed.set_footer(text='awww')
         await ctx.send(embed=embed)
-        
+
     # get a random cute pic of a panda
     # usage: >>panda
     @commands.command()
@@ -156,7 +156,7 @@ class Fun(commands.Cog):
     async def meme(self, ctx):
         url = 'https://some-random-api.ml/meme'
         result_url = requests.get(url)
-        resultjson=result_url.json()
+        resultjson = result_url.json()
         embed=discord.Embed(title=resultjson['caption'], description="meme",
         colour=discord.Colour.purple())
         embed.set_image(url=resultjson['image'])
