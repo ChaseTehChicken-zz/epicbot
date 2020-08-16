@@ -21,4 +21,4 @@ for filename in os.listdir('./cogs'):
 
         # Testing push event
 
-client.run(token) # make token variable
+client.run("NjQ2MDA0MzM4MzYzMjAzNjA2.XdK0bA.fsY4oYzL0OKfHbN6a-TJ_aFUN3A") # make token variable

@@ -52,11 +52,9 @@ class Moderation(commands.Cog):
     async def ban(self, ctx, member : Sinner=None, *, reason=None):
         if not member:
             return await ctx.send('You must specify a user to ban')
-
         try:
             await member.ban(reason=reason)
             await ctx.send(f'{member.name} was banned ;-;\nReason: {reason}')
-
         except discord.Forbidden:
             return await ctx.send('Are you trying to ban someone higher than me? I cant do that ;-;')
 
@@ -67,7 +65,6 @@ class Moderation(commands.Cog):
     async def unban(self, ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_descriminator = member.split('#')
-
         for ban_entry in banned_users:
             user = ban_entry.user
             if(user.name, user.discriminator) == (member_name, member_descriminator):
@@ -95,7 +92,6 @@ class Moderation(commands.Cog):
         await ctx.send(f"{user.mention} has been unmuted")
         return
 
-
     # kick member
     # usage: >>kick (user) (reason)
     @commands.command()
@@ -103,7 +99,6 @@ class Moderation(commands.Cog):
     async def kick(self, ctx, user: Sinner=None, reason=None):
         if not user:
             return await ctx.send("You must specify a user")
-
         try:
             await ctx.guild.kick(user, f"By {ctx.author} for {reason}" or f"By {ctx.author} for None Specified")
             await ctx.send(f'{user} was kicked for {reason}')
@@ -116,19 +111,17 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, limit: int):
         """Bulk deletes messages"""
-
-        await ctx.purge(limit=limit + 1)
-        await ctx.send(f"Bulk deleted `{limit}` messages", delete_after=5)
+        # somehow this just works when i do ctx.channel.purge instead of ctx.purge
+        await ctx.channel.purge(limit=limit + 1)
+        await ctx.channel.send(f"Bulk deleted `{limit}` messages", delete_after=5)
 
     # block user from sending messages in channel
     # usage: >>block (user)
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def block(self, ctx, user: Sinner=None):
-
         if not user:
             return await ctx.send("You must specify a user")
-
         await ctx.channel.set_permissions(user, send_messages=False)
         await ctx.send(f'{user} was blocked from sending messages in this channel ;-;')
 
@@ -137,10 +130,8 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def unblock(self, ctx, user: Sinner=None):
-
         if not user:
             return await ctx.send("You must specify a user")
-
         await ctx.channel.set_permissions(user, send_messages=True)
 
     # find out user info
@@ -149,7 +140,6 @@ class Moderation(commands.Cog):
     @commands.cooldown(1, 4, commands.BucketType.user)
     async def userinfo(self, ctx, user: discord.Member = None):
         """Get a users info."""
-
         if not user:
             user = ctx.message.author
         try:
@@ -189,6 +179,7 @@ class Moderation(commands.Cog):
     # usage: >>echo/say (channel) (text)
     @commands.command(aliases=['say'])
     async def echo(self, ctx, channel:discord.TextChannel=None, *, args):
+        # when i tested it it only sends when u give it a channel when u give none it just sends nothing
         try:
             if channel is None:
                 return await ctx.send(args)
@@ -196,6 +187,7 @@ class Moderation(commands.Cog):
                 return await channel.send(args)
             else:
                 return
+
         except discord.Forbidden:
             await ctx.send('I dont have permission to talk there ;-;')
 
@@ -204,10 +196,13 @@ class Moderation(commands.Cog):
     @commands.command(aliases=['server', 'guildinfo', 'serverinfo'])
     async def guild(self, ctx):
         await ctx.trigger_typing()
+
         server = ctx.guild
         roles = []
+
         for r in server.roles:
             roles.append(r.name)
+
         stp2 = ", ".join(roles)
         embed = discord.Embed(color=0xFF00EE, title="Guild Info")
         embed.set_author(name=server.name, icon_url=server.icon_url)
@@ -222,8 +217,8 @@ class Moderation(commands.Cog):
         embed.add_field(name="Region", value=server.region)
         embed.add_field(name="Custom Emoji", value=len(server.emojis))
         embed.add_field(name="Created At", value=server.created_at)
-        await ctx.send(embed=embed)
 
+        await ctx.send(embed=embed)
 
 def setup(client):
     client.add_cog(Moderation(client))

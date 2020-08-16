@@ -5,9 +5,7 @@ import sys
 import traceback
 
 class Error(commands.Cog):
-
     def __init__(self, client):
-
         self.client = client
 
     @commands.Cog.listener()
@@ -34,11 +32,9 @@ class Error(commands.Cog):
             await ctx.send(embed=embed)
         else:
             raise error
+            # my ide says this code is unreachable .-.
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
-
-
 def setup(client):
-
     client.add_cog(Error(client))
