@@ -19,7 +19,7 @@ class help(commands.Cog):
             e.add_field(name='>>kaomoji_bear', value='Sends a random bear kaomoji')
             e.add_field(name='>>kaomoji_positive', value='Sends a random happy kaomoji')
             e.add_field(name='>>kaomoji_negative', value='Sends a random sad kaomoji')
-            e.add_field(name='>>kaomoji_neutral', value='Sends a neutral kaomojis')
+            e.add_field(name='>>kaomoji_neutral', value='Sends a random neutral kaomoji')
             e.add_field(name='>>cat', value='Generate an image of a cat')
             e.add_field(name='>>dog', value='Generate an image of a dog')
             e.add_field(name='>>panda', value='Generate an image of a panda')
@@ -37,9 +37,12 @@ class help(commands.Cog):
             e.add_field(name='>>mute (@member)', value='Mute people from chatting in the whole server')
             e.add_field(name='>>unmute (@member)', value='Unmute people after they learn their lesson')
             e.add_field(name='>>kick (@member)', value='Kicks a member from the server without banning them')
-            e.add_field(name='>>purge (2-100)', value='Delete up to 100 messages from the channel')
+            e.add_field(name='>>purge/clear (2-100)', value='Delete up to 100 messages from the channel')
             e.add_field(name='>>block (@member)', value='Block a member from chatting in the channel this command was used in, without muting the member')
             e.add_field(name='>>unblock (@member)', value='Unblocks member from the channel')
+            e.add_field(name='>>user/whois/i/ui (@member)', value='Find out everything about a member')
+            e.add_field(name='>>echo/say (channel) (text)', value='Let the bot talk! uwu')
+            e.add_field(name='>>guild/server/guildinfo/serverinfo', value='Get server info')
             await ctx.send(embed=e)
 
         elif args == 'imagegen':

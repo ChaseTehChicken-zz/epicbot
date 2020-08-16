@@ -143,7 +143,7 @@ class Moderation(commands.Cog):
 
         await ctx.channel.set_permissions(user, send_messages=True)
 
-    # find out userinfo
+    # find out user info
     # usage: >>user/whois/i/ui (user)
     @commands.command(aliases=["user", "whois", "i", "ui"])
     @commands.cooldown(1, 4, commands.BucketType.user)
