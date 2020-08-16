@@ -6,8 +6,8 @@ class help(commands.Cog):
         self.client = client
     
     @commands.command()
-    async def help(self, ctx, args):
-        if not args:
+    async def help(self, ctx, args=None):
+        if args == None:
             e = discord.Embed(title='Epic Help Command!', color=0xfa00e9)
             e.add_field(name='>>help imagegen', value='Image generation commands')
             e.add_field(name='>>help mod', value='Epic mod commands')
