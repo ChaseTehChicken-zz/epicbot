@@ -177,5 +177,39 @@ class Fun(commands.Cog):
             embed = discord.Embed(title=None, description=f"There are **{word}** letters in **{args}**", color=discord.Colour.dark_purple())
             await ctx.send(embed=embed)
 
+    # LMGTFY (Let Me Google That For You)
+    # Usage: >>google [argument/s]
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def google(self, ctx, *, args):
+        if not ' ' in args:
+            return await ctx.send(f'<http://lmgtfy.com/?q={args}&pp=1>')
+        await ctx.send(f"<http://lmgtfy.com/?q={args.replace(' ', '+')}&pp=1>")
+
+    # Clap
+    # Usage: >>clap/sassify [argument/s]
+    # If single arg, returns: a :clap: r :clap: g :clap: s :clap:
+    # If multiple args, returns: These :clap: are :clap: multiple :clap: words :clap: 
+    @commands.command(aliases=['sassify', 'sass'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def clap(self, ctx, *, args):
+        if not ' ' in args:
+            charList = [char for char in args]
+            sendText = ' '.join(map(str, charList))
+            return await ctx.send(sendText.replace(' ', ' :clap: '))
+        await ctx.send(args.replace(' ', ' :clap: '))
+
+    @commands.command(aliases=['howgay'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def gaymeter(self, ctx, member : discord.Member=None):
+        if not member: 
+            embed = discord.Embed(description=f'{ctx.author.name}, you are {random.randint(0,101)}% gay\n:rainbow_flag:')
+            await ctx.send(embed=embed)
+
+        else: 
+            embed = discord.Embed(description=f'{member.name} is {random.randint(0,101)}% gay\n:rainbow_flag:')
+            await ctx.send(embed=embed)
+
+
 def setup(client):
     client.add_cog(Fun(client))
