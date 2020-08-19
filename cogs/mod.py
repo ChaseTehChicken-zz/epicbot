@@ -18,9 +18,9 @@ class Redeemed(commands.Converter):
         if muted in argument.roles:
             return argument
         else:
-            raise commands.BadArgument("The user was not muted.")
+            raise commands.BadArgument("The member was not muted.")
 
-async def mute(ctx, user, reason):
+async def mute(ctx, member, reason):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     if not role:
         try:
@@ -31,11 +31,11 @@ async def mute(ctx, user, reason):
                                                 read_messages=False)
         except discord.Forbidden:
             return await ctx.send("I have no permissions to make a muted role")
-        await user.add_roles(muted)
-        await ctx.send(f"{user.mention} has been muted for {reason}")
+        await member.add_roles(muted)
+        await ctx.send(f"{member.mention} has been muted for {reason}")
     else:
-        await user.add_roles(role)
-        await ctx.send(f"{user.mention} has been muted for {reason}")
+        await member.add_roles(role)
+        await ctx.send(f"{member.mention} has been muted for {reason}")
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -46,12 +46,12 @@ class Moderation(commands.Cog):
             await ctx.send(error)
 
     # ban member
-    # usage: >>ban (member) (reason)
+    # Usage: >>ban (member) [reason]
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : Sinner=None, *, reason=None):
         if not member:
-            return await ctx.send('You must specify a user to ban')
+            return await ctx.send('You must specify a member to ban')
         try:
             await member.ban(reason=reason)
             await ctx.send(f'{member.name} was banned ;-;\nReason: {reason}')
@@ -59,54 +59,54 @@ class Moderation(commands.Cog):
             return await ctx.send('Are you trying to ban someone higher than me? I cant do that ;-;')
 
     # unban banned member
-    # usage: >>unban (member)
+    # Usage: >>unban (member)
     @commands.command()
     @commands.has_permissions(ban_members=True)
     async def unban(self, ctx, *, member):
-        banned_users = await ctx.guild.bans()
+        banned_members = await ctx.guild.bans()
         member_name, member_descriminator = member.split('#')
-        for ban_entry in banned_users:
-            user = ban_entry.user
-            if(user.name, user.discriminator) == (member_name, member_descriminator):
-                await ctx.guild.unban(user)
-                await ctx.send(f'Sucessfully unbanned {user}')
+        for ban_entry in banned_members:
+            member = ban_entry.member
+            if(member.name, member.discriminator) == (member_name, member_descriminator):
+                await ctx.guild.unban(member)
+                await ctx.send(f'Sucessfully unbanned {member}')
                 print(f'Member unbanned: {member}')
                 return
 
-    # mute user
-    # usage: >>mute (user) (reason)
+    # mute member
+    # Usage: >>mute (member) [reason]
     @commands.command()
     @commands.has_permissions(manage_roles=True)
-    async def mute(self, ctx, user: Sinner, reason=None):
+    async def mute(self, ctx, member: Sinner, reason=None):
         """Gives them hell."""
-        await mute(ctx, user, reason or "treason")
-        await ctx.send(f'{user} was muted for {reason}')
+        await mute(ctx, member, reason or "treason")
+        await ctx.send(f'{member} was muted for {reason}')
 
-    # unmute user
-    # usage: >>unmute (user)
+    # unmute member
+    # Usage: >>unmute (member)
     @commands.command()
     @commands.has_permissions(manage_roles=True)
-    async def unmute(self, ctx, user: Redeemed):
-        """Unmutes a muted user"""
-        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
-        await ctx.send(f"{user.mention} has been unmuted")
+    async def unmute(self, ctx, member: Redeemed):
+        """Unmutes a muted member"""
+        await member.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted"))
+        await ctx.send(f"{member.mention} has been unmuted")
         return
 
     # kick member
-    # usage: >>kick (user) (reason)
+    # Usage: >>kick (member) [reason]
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, user: Sinner=None, reason=None):
-        if not user:
-            return await ctx.send("You must specify a user")
+    async def kick(self, ctx, member: Sinner=None, reason=None):
+        if not member:
+            return await ctx.send("You must specify a member")
         try:
-            await ctx.guild.kick(user, f"By {ctx.author} for {reason}" or f"By {ctx.author} for None Specified")
-            await ctx.send(f'{user} was kicked for {reason}')
+            await ctx.guild.kick(member, f"By {ctx.author} for {reason}" or f"By {ctx.author} for None Specified")
+            await ctx.send(f'{member} was kicked for {reason}')
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot?")
 
     # clears chatmessages 
-    # usage: >>purge/clear (limit)
+    # Usage: >>purge/clear (limit)
     @commands.command(aliases=["clear"])
     @commands.has_permissions(manage_messages=True)
     async def purge(self, ctx, limit: int):
@@ -115,53 +115,53 @@ class Moderation(commands.Cog):
         await ctx.channel.purge(limit=limit + 1)
         await ctx.channel.send(f"Bulk deleted `{limit}` messages", delete_after=5)
 
-    # block user from sending messages in channel
-    # usage: >>block (user)
+    # block member from sending messages in channel
+    # Usage: >>block (member)
     @commands.command()
     @commands.has_permissions(manage_channels=True)
-    async def block(self, ctx, user: Sinner=None):
-        if not user:
-            return await ctx.send("You must specify a user")
-        await ctx.channel.set_permissions(user, send_messages=False)
-        await ctx.send(f'{user} was blocked from sending messages in this channel ;-;')
+    async def block(self, ctx, member: Sinner=None):
+        if not member:
+            return await ctx.send("You must specify a member")
+        await ctx.channel.set_permissions(member, send_messages=False)
+        await ctx.send(f'{member} was blocked from sending messages in this channel ;-;')
 
-    # unblock user
-    # usage: >>unblock (user)
+    # unblock member
+    # Usage: >>unblock (member)
     @commands.command()
     @commands.has_permissions(manage_channels=True)
-    async def unblock(self, ctx, user: Sinner=None):
-        if not user:
-            return await ctx.send("You must specify a user")
-        await ctx.channel.set_permissions(user, send_messages=True)
+    async def unblock(self, ctx, member: Sinner=None):
+        if not member:
+            return await ctx.send("You must specify a member")
+        await ctx.channel.set_permissions(member, send_messages=True)
 
-    # find out user info
-    # usage: >>user/whois/i/ui (user)
-    @commands.command(aliases=["user", "whois", "i", "ui"])
-    @commands.cooldown(1, 4, commands.BucketType.user)
-    async def userinfo(self, ctx, user: discord.Member = None):
-        """Get a users info."""
-        if not user:
-            user = ctx.message.author
+    # find out member info
+    # Usage: >>member/whois/i/ui (member)
+    @commands.command(aliases=["member", "whois", "i", "ui"])
+    @commands.cooldown(1, 4, commands.BucketType.member)
+    async def memberinfo(self, ctx, member: discord.Member = None):
+        """Get a members info."""
+        if not member:
+            member = ctx.message.author
         try:
-            playinggame = user.activity.title
+            playinggame = member.activity.title
         except:
             playinggame = None
 
         server = ctx.message.guild
         embed = discord.Embed(color=0xDEADBF)
-        embed.set_author(name=user.name, icon_url=user.avatar_url)
-        embed.add_field(name="ID", value=user.id)
-        embed.add_field(name="Discriminator", value=user.discriminator)
-        embed.add_field(name="Bot", value=str(user.bot))
-        embed.add_field(name="Created", value=user.created_at.strftime("%d %b %Y %H:%M"))
-        embed.add_field(name="Joined", value=user.joined_at.strftime("%d %b %Y %H:%M"))
-        embed.add_field(name="Animated Avatar", value=str(user.is_avatar_animated()))
+        embed.set_author(name=member.name, icon_url=member.avatar_url)
+        embed.add_field(name="ID", value=member.id)
+        embed.add_field(name="Discriminator", value=member.discriminator)
+        embed.add_field(name="Bot", value=str(member.bot))
+        embed.add_field(name="Created", value=member.created_at.strftime("%d %b %Y %H:%M"))
+        embed.add_field(name="Joined", value=member.joined_at.strftime("%d %b %Y %H:%M"))
+        embed.add_field(name="Animated Avatar", value=str(member.is_avatar_animated()))
         embed.add_field(name="Playing", value=playinggame)
-        embed.add_field(name="Status", value=user.status)
-        embed.add_field(name="Color", value=str(user.color))
+        embed.add_field(name="Status", value=member.status)
+        embed.add_field(name="Color", value=str(member.color))
 
         try:
-            roles = [x.name for x in user.roles if x.name != "@everyone"]
+            roles = [x.name for x in member.roles if x.name != "@everyone"]
 
             if roles:
                 roles = sorted(roles, key=[x.name for x in server.role_hierarchy
@@ -176,7 +176,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed=embed)
 
     # let the bot talk uwu
-    # usage: >>echo/say (channel) (text)
+    # Usage: >>echo/say (channel) (text)
     @commands.command(aliases=['say'])
     async def echo(self, ctx, channel:discord.TextChannel=None, *, args):
         # when i tested it it only sends when u give it a channel when u give none it just sends nothing
@@ -192,7 +192,7 @@ class Moderation(commands.Cog):
             await ctx.send('I dont have permission to talk there ;-;')
 
     # get server info
-    # usage: >>guild/server/guildinfo/serverinfo 
+    # Usage: >>guild/server/guildinfo/serverinfo 
     @commands.command(aliases=['server', 'guildinfo', 'serverinfo'])
     async def guild(self, ctx):
         await ctx.trigger_typing()
