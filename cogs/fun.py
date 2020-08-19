@@ -8,7 +8,7 @@ class Fun(commands.Cog):
         self.client = client
 
     # get a random kaomoji bear
-    # usage: >>kaomoji_bear
+    # Usage: >>kaomoji_bear
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def kaomoji_bear(self, ctx):
@@ -18,7 +18,7 @@ class Fun(commands.Cog):
         await ctx.send(" " + random.choice(kaomoji_bears))
 
     # get a random positive kaomoji
-    # usage: >>kaomoji_positive
+    # Usage: >>kaomoji_positive
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def kaomoji_positive(self, ctx):
@@ -28,7 +28,7 @@ class Fun(commands.Cog):
         await ctx.send(" " + random.choice(positive_kaomojis))
 
     # get a random negative kaomoji
-    # usage: >>kaomoji_negative
+    # Usage: >>kaomoji_negative
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def kaomoji_negative(self, ctx):
@@ -38,7 +38,7 @@ class Fun(commands.Cog):
         await ctx.send(" " + random.choice(negative_kaomojis))
 
     # get a random neutral kaomoji
-    # usage: >>kaomoji_neutral
+    # Usage: >>kaomoji_neutral
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def kaomoji_neutral(self, ctx):
@@ -47,7 +47,7 @@ class Fun(commands.Cog):
         await ctx.send(" " + random.choice(neutral_kaomojis))
 
     # get a random cute pic of a cat
-    # usage: >>cat
+    # Usage: >>cat
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def cat(self, ctx):
@@ -61,7 +61,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     # get a random cute pic of a dog
-    # usage: >>dog
+    # Usage: >>dog
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def dog(self, ctx):
@@ -75,7 +75,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     # get a random cute pic of a panda
-    # usage: >>panda
+    # Usage: >>panda
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def panda(self, ctx):
@@ -90,7 +90,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     # get a random cute pic of a redpanda
-    # usage: >>redpanda
+    # Usage: >>redpanda
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def redpanda(self, ctx):
@@ -105,7 +105,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
     
     # get a random cute pic of a birb
-    # usage: >>birb
+    # Usage: >>birb
     @commands.command(aliases=['bird'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def birb(self, ctx):
@@ -120,7 +120,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     # get a random cute pic of a fox
-    # usage: >>fox
+    # Usage: >>fox
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fox(self, ctx):
@@ -135,7 +135,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     # get a random cute pic of a koala
-    # usage: >>koala
+    # Usage: >>koala
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def koala(self, ctx):
@@ -150,7 +150,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
 
     # get a random picture of a meme
-    # usage: >>meme
+    # Usage: >>meme
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def meme(self, ctx):
@@ -164,22 +164,22 @@ class Fun(commands.Cog):
         await ctx.send(embed=embed)
                          
     # Char count
-    # Usage: >>char [argument/s]
+    # Usage: >>char (sentence/word)
     @commands.command()
-    @commands.cooldown(1,3, commands.BucketType.user)
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def char(self, ctx, *, args=None):
 
         if args == None:
             await ctx.send("**Dummy what am I supposed to jumble?**")
 
         elif args != None:
-            word = len(args)
-            embed = discord.Embed(title=None, description=f"There are **{word}** letters in **{args}**", color=discord.Colour.dark_purple())
+            argument_length = len(args)
+            embed = discord.Embed(title=None, description=f"There are **{argument_length}** letters in **{args}**", color=discord.Colour.dark_purple())
             await ctx.send(embed=embed)
 
     # LMGTFY (Let Me Google That For You)
-    # Usage: >>google [argument/s]
-    @commands.command()
+    # Usage: >>google (query)
+    @commands.command(aliases=['lmgtfy'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def google(self, ctx, *, args):
         if not ' ' in args:
@@ -187,7 +187,7 @@ class Fun(commands.Cog):
         await ctx.send(f"<http://lmgtfy.com/?q={args.replace(' ', '+')}&pp=1>")
 
     # Clap
-    # Usage: >>clap/sassify [argument/s]
+    # Usage: >>clap/sassify/sass (sentence/word)
     # If single arg, returns: a :clap: r :clap: g :clap: s :clap:
     # If multiple args, returns: These :clap: are :clap: multiple :clap: words :clap: 
     @commands.command(aliases=['sassify', 'sass'])
@@ -199,6 +199,8 @@ class Fun(commands.Cog):
             return await ctx.send(sendText.replace(' ', ' :clap: '))
         await ctx.send(args.replace(' ', ' :clap: '))
 
+    # Gaymeter
+    # Usage: >>howgay/gaymeter [member]
     @commands.command(aliases=['howgay'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gaymeter(self, ctx, member : discord.Member=None):

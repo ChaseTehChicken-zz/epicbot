@@ -21,7 +21,7 @@ class Image(commands.Cog):
         return em
 
     # generates a tweet picture with username and text
-    # usage: >>tweet (username) (text)
+    # Usage: >>tweet (username) (text)
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def tweet(self, ctx, username : str, *, text : str):
@@ -33,7 +33,7 @@ class Image(commands.Cog):
         await ctx.send(embed=self.__embed_json(res))
 
     # generates a ph comment picture [only works in nsfw channels]
-    # usage: >>phcomment (text)
+    # Usage: >>phcomment (text)
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def phcomment(self, ctx, *, comment : str):

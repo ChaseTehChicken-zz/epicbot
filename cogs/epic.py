@@ -12,7 +12,7 @@ class Epic(commands.Cog):
     @commands.command(aliases=["latency"])
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def ping(self, ctx):
-        embed = discord.Embed(title="Pong!", description=f"{round(self.client.latency * 1000)} MS", color=embed_color)
+        embed = discord.Embed(title="Pong!", description=f"{round(self.client.latency * 1000)}ms", color=embed_color)
         embed.timestamp = datetime.datetime.utcnow()
         await ctx.send(embed=embed) # fixed xd
 
